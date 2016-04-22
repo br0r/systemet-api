@@ -8,5 +8,6 @@ An API for swedish Systembolaget data
 
 ```bash
 cd db
-python3 create_db.py --products-file PRODUCTS_FILE.csv --stores-file STORES_FILE.csv
+sqlite3 systemet.db < db.schema
+create_db.py --products-file PRODUCTS_FILE.csv --stores-file STORES_FILE.csv
 ```
