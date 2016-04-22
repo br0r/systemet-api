@@ -14,9 +14,6 @@ def dict_factory(cursor, row):
   return d
 
 def getStores(name=None, n=None, query=None):
-  if n is None:
-    n = 10
-
   conn = sqlite3.connect(config.DB_PATH)
   conn.row_factory = dict_factory
   c = conn.cursor()
@@ -27,7 +24,10 @@ def getStores(name=None, n=None, query=None):
   if query is not None:
     q = q.where(T.stores.keywords.contains(query))
 
-  q = compile(q[0:int(n)])
+  if n is not None:
+    q = q[0:int(n)]
+
+  q = compile(q)
   print("Q is", q)
   c.execute(q[0], q[1])
   results = c.fetchall()

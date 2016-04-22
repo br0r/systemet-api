@@ -15,7 +15,7 @@ def dict_factory(cursor, row):
 
 def getProducts(name=None, n=None):
   if n is None:
-    n = 10
+    n = 100
 
   conn = sqlite3.connect(config.DB_PATH)
   conn.row_factory = dict_factory
@@ -23,7 +23,7 @@ def getProducts(name=None, n=None):
   tb = T.products
   w = None
   if name is not None:
-    w = tb.name.contains(name)
+    w = (tb.name.contains(name)) | (tb.name_2.contains(name))
 
   q = compile(Q(tb).fields('*').where(w)[0:int(n)])
   print("Q IS", q)
