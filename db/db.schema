@@ -1,5 +1,5 @@
 PRAGMA encoding = "UTF-8";
 
-CREATE TABLE products (id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, name_2 TEXT NOT NULL, price_vat REAL NOT NULL, volume_in_ml INT NOT NULL, price_per_liter REAL NOT NULL, sale_start TEXT, product_group TEXT, package TEXT, origin TEXT, country TEXT, producer TEXT, supplier TEXT, vintage_year INT, ABV text NOT NULL, assortment TEXT, ecologic BOOLEAN, ethical BOOLEAN, koscher BOOLEAN, raw_material_description TEXT);
+CREATE TABLE products (id INT PRIMARY KEY NOT NULL, nr INT NOT NULL, name TEXT NOT NULL, name_2 TEXT NOT NULL, price_vat REAL NOT NULL, volume_in_ml INT NOT NULL, price_per_liter REAL NOT NULL, sale_start TEXT, product_group TEXT, package TEXT, origin TEXT, country TEXT, producer TEXT, supplier TEXT, vintage_year INT, ABV text NOT NULL, assortment TEXT, ecologic BOOLEAN, ethical BOOLEAN, koscher BOOLEAN, raw_material_description TEXT);
 
 CREATE TABLE stores (id INT PRIMARY KEY NOT NULL, name TEXT NOT NULL, type TEXT NOT NULL, address_1 TEXT NOT NULL, address_2 TEXT NOT NULL, address_3 TEXT NOT NULL, address_4 TEXT NOT NULL, address_5 TEXT NOT NULL, phone_number TEXT, services TEXT, keywords TEXT, opening_hours TEXT NOT NULL, RT90x REAL NOT NULL, RT90y REAL NOT NULL);

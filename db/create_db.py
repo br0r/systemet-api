@@ -7,7 +7,7 @@ import argparse
 def load_products(conn, file_name):
   df = pd.read_csv(file_name)
 
-  columns_to_use = [u'Artikelid', u'Namn', u'Namn2', u'Prisinklmoms',
+  columns_to_use = [u'nr', u'Artikelid', u'Namn', u'Namn2', u'Prisinklmoms',
          u'Volymiml', u'PrisPerLiter', u'Saljstart',
          u'Varugrupp', u'Forpackning', u'Ursprung',
          u'Ursprunglandnamn', u'Producent', u'Leverantor', u'Argang',
@@ -15,7 +15,7 @@ def load_products(conn, file_name):
          u'Koscher', u'RavarorBeskrivning']
 
   df = df[columns_to_use]
-  new_column_names = ['id', 'name', 'name_2', 'price_vat', 'volume_in_ml', 'price_per_liter', 'sale_start', 'product_group', 'package', 'origin', 'country', 'producer', 'supplier', 'vintage_year', 'ABV', 'assortment', 'ecologic', 'ethical', 'koscher', 'raw_material_description']
+  new_column_names = ['nr', 'id', 'name', 'name_2', 'price_vat', 'volume_in_ml', 'price_per_liter', 'sale_start', 'product_group', 'package', 'origin', 'country', 'producer', 'supplier', 'vintage_year', 'ABV', 'assortment', 'ecologic', 'ethical', 'koscher', 'raw_material_description']
   df.columns = new_column_names
 
   df.to_sql('products', conn, if_exists='append', index=0)
