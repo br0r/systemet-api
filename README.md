@@ -3,6 +3,7 @@ An API for swedish Systembolaget data
 
 *Nothing useful here yet*
 
+*This repo is highly unstable. Feel free to clone or fork if you like, but I wouln't rely on it for anything else than educational purposes*
 
 ## Setting up DB from scratch
 
