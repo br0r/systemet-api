@@ -5,6 +5,8 @@ An API for swedish Systembolaget data
 
 *This repo is highly unstable. Feel free to clone or fork if you like, but I wouln't rely on it for anything else than educational purposes*
 
+Written in haskell! Yay
+
 ## Setting up DB from scratch
 
 A copy from 2016-04-23 is located inside repo.
@@ -20,8 +22,6 @@ create_db.py --products-file PRODUCTS_FILE.csv --stores-file STORES_FILE.csv
 ```bash
 # TBD
 ```
-
-Run `python3 server.js` and go to localhost:5000
 
 ## API
 
