@@ -1,0 +1,9 @@
+db:
+  image: busybox
+  volumes:
+    - ./db:/opt/db
+
+systemetapi:
+  build: ./systemetapi
+  volumes_from:
+      - db

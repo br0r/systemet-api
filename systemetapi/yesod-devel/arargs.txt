@@ -1,0 +1,1 @@
+["-r","-c","dist/build/objs-1099/libHSsystemetapi-0.0.0-6szRb5Cicb85FI9gx3rmBx.a","dist/build/Model.o","dist/build/App.o"]
