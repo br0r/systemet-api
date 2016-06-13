@@ -15,8 +15,8 @@ defmodule SystemetAPI.Product do
     field :country, :string
     field :producer, :string
     field :supplier, :string
-    field :vintage_year, :string
-    field :ABV, :string
+    field :vintage_year, :integer
+    field :abv, :string
     field :assortment, :string
     field :ecologic, :boolean
     field :ethical, :boolean

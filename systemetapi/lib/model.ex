@@ -11,7 +11,7 @@ defmodule SystemetAPI.Model do
     end
 
     query = from p in Product,
-      select: p,
+      select: %{nr: p.nr, name: p.name, name_2: p.name_2, price_vat: p.price_vat, volume_in_ml: p.volume_in_ml, price_per_liter: p.price_per_liter, ABV: p.abv},
       where: (like p.name, ^"%#{name}%"),
       limit: ^limit
 

@@ -1,6 +1,6 @@
 defmodule SystemetAPI.Starter do
   def start_link do
-    {:ok, _} = Plug.Adapters.Cowboy.http SystemetAPI.Router, [], port: 4000
+    {:ok, _} = Plug.Adapters.Cowboy.http SystemetAPI.Router, [], port: 4001
   end
 end
 
