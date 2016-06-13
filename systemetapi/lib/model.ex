@@ -1,4 +1,5 @@
 defmodule SystemetAPI.Model do
+  require Logger
   import Ecto.Query
   alias SystemetAPI.Repo
   alias SystemetAPI.Product
@@ -10,11 +11,12 @@ defmodule SystemetAPI.Model do
     end
 
     query = from p in Product,
-      select: {p.nr, p.name},
+      select: p,
       where: (like p.name, ^"%#{name}%"),
       limit: ^limit
 
-    products = Repo.all query
-    Enum.map products, fn {nr, x} -> %{nr: nr, name: x} end
+    products = query |> Repo.all
+    Logger.debug "Products are #{inspect products}"
+    products
   end
 end

@@ -17,7 +17,6 @@ defmodule SystemetAPI.Router do
     params = query.params
     Logger.debug "Got params #{inspect params}"
     products = SystemetAPI.Model.getProductsByName params["name"], params["n"]
-    Logger.debug "Got products #{inspect(products)}"
     send_resp(conn, 200, Poison.encode!(%{data: products}))
   end
 
