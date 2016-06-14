@@ -24,12 +24,3 @@ defmodule SystemetAPI.Product do
     field :raw_material_description, :string
   end
 end
-
-defimpl Poison.Encoder, for: SystemetAPI.Product do
-  require Logger
-  def encode(model, opts) do
-    model
-    |> Map.take([:nr, :name, :name_2, :price_vat, :volume_in_ml, :price_per_liter, :ABV])
-    |> Poison.Encoder.encode(opts)
-  end
-end
