@@ -28,6 +28,15 @@ def load_products(conn, file_name):
   for col in int_columns:
       df[col] = df[col].apply(to_number)
 
+  def check_for_int(x):
+    try:
+        x = int(x)
+    except:
+        x = 0
+    return x
+
+  df['vintage_year'] = df['vintage_year'].apply(check_for_int)
+
   df.to_sql('products', conn, if_exists='append', index=0)
 
 def load_stores(conn, file_name):

@@ -1,4 +1,9 @@
 defmodule SystemetAPI.Product do
+  @derive {Poison.Encoder, only: [
+    :nr, :name, :name_2, :price_vat, :volume_in_ml, :price_per_liter, :product_group, :sale_start,
+    :package, :origin, :country, :producer, :supplier, :vintage_year, :abv, :assortment, :ecologic,
+    :ethical, :koscher, :raw_material_description
+  ]}
   use Ecto.Model
 
   schema "products" do
@@ -15,7 +20,7 @@ defmodule SystemetAPI.Product do
     field :country, :string
     field :producer, :string
     field :supplier, :string
-    field :vintage_year, :integer
+    field :vintage_year, :integer, default: 0
     field :abv, :string
     field :assortment, :string
     field :ecologic, :boolean

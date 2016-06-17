@@ -11,22 +11,10 @@ defmodule SystemetAPI.Model do
     end
 
     query = from p in Product,
-      select: %{
-        nr: p.nr,
-        name: p.name,
-        name_2: p.name_2,
-        price_vat: p.price_vat,
-        volume_in_ml: p.volume_in_ml,
-        price_per_liter: p.price_per_liter,
-        ABV: p.abv,
-        country: p.country,
-        product_group: p.product_group,
-        },
+      select: p,
       where: (like p.name, ^"%#{name}%"),
       limit: ^limit
 
-    products = query |> Repo.all
-    Logger.debug "Products are #{inspect products}"
-    products
+    Repo.all query
   end
 end
