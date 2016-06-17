@@ -5,9 +5,9 @@ defmodule SystemetAPI.Product do
     field :nr, :integer
     field :name, :string
     field :name_2, :string
-    field :price_vat, :string
-    field :volume_in_ml, :string
-    field :price_per_liter, :string
+    field :price_vat, :float, default: 0.0
+    field :volume_in_ml, :integer, default: 0
+    field :price_per_liter, :float, default: 0.0
     field :sale_start, :string
     field :product_group, :string
     field :package, :string

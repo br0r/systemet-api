@@ -3,6 +3,11 @@ import sys
 import sqlite3
 import pandas as pd
 import argparse
+import re
+
+def to_number(x):
+    n = re.match(r"^([0-9]+).([0-9]+).*$", x)
+    return float(n.group(1) + "." + n.group(2))
 
 def load_products(conn, file_name):
   df = pd.read_csv(file_name)
@@ -15,8 +20,13 @@ def load_products(conn, file_name):
          u'Koscher', u'RavarorBeskrivning']
 
   df = df[columns_to_use]
+
   new_column_names = ['nr', 'id', 'name', 'name_2', 'price_vat', 'volume_in_ml', 'price_per_liter', 'sale_start', 'product_group', 'package', 'origin', 'country', 'producer', 'supplier', 'vintage_year', 'ABV', 'assortment', 'ecologic', 'ethical', 'koscher', 'raw_material_description']
   df.columns = new_column_names
+
+  int_columns = ['price_vat', 'volume_in_ml', 'price_per_liter']
+  for col in int_columns:
+      df[col] = df[col].apply(to_number)
 
   df.to_sql('products', conn, if_exists='append', index=0)
 
