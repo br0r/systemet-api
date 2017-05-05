@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+import sys
+import sqlite3
+from sqlalchemy import create_engine
+import pandas as pd
+import argparse
+import re
+
+def to_number(x):
+    n = re.match(r"^([0-9]+).([0-9]+).*$", x)
+    return float(n.group(1) + "." + n.group(2))
+
+def load_products(conn, file_name):
+  df = pd.read_csv(file_name)
+
+  columns_to_use = [u'nr', u'Artikelid', u'Namn', u'Namn2', u'Prisinklmoms',
+         u'Volymiml', u'PrisPerLiter', u'Saljstart',
+         u'Varugrupp', u'Forpackning', u'Ursprung',
+         u'Ursprunglandnamn', u'Producent', u'Leverantor', u'Argang',
+         u'Alkoholhalt', u'Sortiment', u'Ekologisk', u'Etiskt',
+         u'Koscher', u'RavarorBeskrivning']
+
+  df = df[columns_to_use]
+
+  new_column_names = ['nr', 'id', 'name', 'name_2', 'price_vat', 'volume_in_ml', 'price_per_liter', 'sale_start', 'product_group', 'package', 'origin', 'country', 'producer', 'supplier', 'vintage_year', 'abv', 'assortment', 'ecologic', 'ethical', 'koscher', 'raw_material_description']
+  df.columns = new_column_names
+
+  int_columns = ['price_vat', 'volume_in_ml', 'price_per_liter']
+  for col in int_columns:
+      df[col] = df[col].apply(to_number)
+
+  bool_columns = ['ecologic', 'ethical', 'koscher']
+  for col in bool_columns:
+      df[col] = df[col].apply(lambda x: bool(x))
+
+  def check_for_int(x):
+    try:
+        x = int(x)
+    except:
+        x = 0
+    return x
+
+  df['vintage_year'] = df['vintage_year'].apply(check_for_int)
+
+  df.to_sql('products', conn, if_exists='append', index=0)
+
+def load_stores(conn, file_name):
+  df = pd.read_csv(file_name)
+
+  columns = {u'Nr': 'id', u'Namn': 'name', u'Typ': 'type', u'Address1': 'address_1', u'Address2': 'address_2',
+      u'Address3': 'address_3', u'Address4': 'address_4', u'Address5': 'address_5', u'Telefon': 'phone_number', u'Tjanster': 'services',
+      u'SokOrd': 'keywords', u'Oppettider': 'opening_hours'}
+
+  df = df[list(columns.keys())]
+  df.columns = columns.values()
+
+  df.to_sql('stores', conn, if_exists='append', index=0)
+
+
+parser = argparse.ArgumentParser(description='Load systemet files into db')
+parser.add_argument('-p', '--products-file', dest='products_file', help='The products file')
+parser.add_argument('-s', '--stores-file', dest='stores_file', help='The stores file')
+
+args = parser.parse_args()
+conn = create_engine('postgresql://postgres:test@192.168.99.102:5432/systemet')
+if (args.products_file is not None):
+  load_products(conn, args.products_file)
+if (args.stores_file is not None):
+  load_stores(conn, args.stores_file)
+sys.exit(0)
